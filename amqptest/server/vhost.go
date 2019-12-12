@@ -27,14 +27,12 @@ func NewVHost(name string) *VHost {
 
 func (v *VHost) createDefaultExchanges() {
 	exchs := make(map[string]Exchange)
-	exchs["amq.topic"] = &TopicExchange{}
-	exchs["amq.direct"] = &DirectExchange{}
+	exchs["amq.topic"] = NewTopicExchange("amq.topic")
+	exchs["amq.direct"] = NewDirectExchange("amq.direct")
 	exchs["amq.fanout"] = NewFanoutExchange("amq.fanout")
-	exchs["topic"] = &TopicExchange{}
-	exchs["direct"] = &DirectExchange{}
-	exchs[""] = &DirectExchange{
-		name: "amq.direct",
-	}
+	exchs["topic"] = NewTopicExchange("topic")
+	exchs["direct"] = NewDirectExchange("direct")
+	exchs[""] = NewDirectExchange("amq.direct")
 
 	v.exchanges = exchs
 }
